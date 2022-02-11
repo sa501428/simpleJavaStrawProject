@@ -26,7 +26,7 @@ public class CountInterContacts {
         // We can take a look at the resolutions available
         // List<HiCZoom> zooms = ds.getAllPossibleResolutions();
         // Or if you have a preferred resolution
-        int resolution = 100000;
+        int resolution = 500000;
         HiCZoom zoom = ds.getZoomForBPResolution(resolution);
 
         // Let's pick our normalization
