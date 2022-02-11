@@ -41,7 +41,7 @@ public class CountInterContacts {
         Chromosome[] chromosomes = handler.getChromosomeArrayWithoutAllByAll();
 
         // In this example, we are counting contacts
-        long totalNumberOfContacts = 0L;
+        long totalNumberOfInterContacts = 0L;
 
         // iterating on the whole genome, but skipping intra reads in this particular example
         for(int i = 0; i < chromosomes.length; i++){
@@ -78,12 +78,14 @@ public class CountInterContacts {
                         // int col = cr.getBinY();
                         float counts = cr.getCounts();
                         if(Float.isNaN(counts) || Float.isInfinite(counts)) continue;
-                        totalNumberOfContacts += counts;
+                        totalNumberOfInterContacts += counts;
                     }
                 }
             }
 
-            System.out.println("Total number of Inter-chromosomal contacts is "+totalNumberOfContacts);
+            // correct for counts below diagonal
+            totalNumberOfInterContacts *= 2;
+            System.out.println("Total number of Inter-chromosomal contacts is "+totalNumberOfInterContacts);
         }
     }
 
