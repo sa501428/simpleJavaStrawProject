@@ -82,11 +82,10 @@ public class CountInterContacts {
                     }
                 }
             }
-
-            // correct for counts below diagonal
-            totalNumberOfInterContacts *= 2;
-            System.out.println("Total number of Inter-chromosomal contacts is "+totalNumberOfInterContacts);
         }
+        // correct for counts below diagonal
+        totalNumberOfInterContacts *= 2;
+        System.out.println("Total number of Inter-chromosomal contacts is "+totalNumberOfInterContacts);
     }
 
     private static void printUsageAndExit() {
