@@ -41,11 +41,12 @@ public class CountInterContacts {
         Chromosome[] chromosomes = handler.getChromosomeArrayWithoutAllByAll();
 
         // In this example, we are counting contacts
+        long totalNumberOfIntraContacts = 0L;
         long totalNumberOfInterContacts = 0L;
 
-        // iterating on the whole genome, but skipping intra reads in this particular example
+        // iterating on the whole genome
         for(int i = 0; i < chromosomes.length; i++){
-            for(int j = i+1; j < chromosomes.length; j++){
+            for(int j = i; j < chromosomes.length; j++){
 
                 // get the Matrix parent object
                 Matrix matrix = ds.getMatrix(chromosomes[i], chromosomes[j]);
@@ -72,19 +73,27 @@ public class CountInterContacts {
                 List<Block> blocks = zd.getNormalizedBlocksOverlapping(rowStart, columnStart, rowEnd, columnEnd, norm,
                         false, fillUnderDiagonal);
                 // iterate over the non-zero entries of the matrix
+                long localSum = 0L;
                 for(Block block : blocks){
                     for (ContactRecord cr : block.getContactRecords()){
                         // int row = cr.getBinX();
                         // int col = cr.getBinY();
                         float counts = cr.getCounts();
                         if(Float.isNaN(counts) || Float.isInfinite(counts)) continue;
-                        totalNumberOfInterContacts += counts;
+                        localSum += counts;
                     }
+                }
+                if(i == j){
+                    totalNumberOfIntraContacts += localSum;
+                } else {
+                    totalNumberOfInterContacts += localSum;
                 }
             }
         }
         // correct for counts below diagonal
+        totalNumberOfIntraContacts *= 2;
         totalNumberOfInterContacts *= 2;
+        System.out.println("Total number of Intra-chromosomal contacts is "+totalNumberOfIntraContacts);
         System.out.println("Total number of Inter-chromosomal contacts is "+totalNumberOfInterContacts);
     }
 
