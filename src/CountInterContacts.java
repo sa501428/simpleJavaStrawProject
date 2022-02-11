@@ -16,12 +16,12 @@ public class CountInterContacts {
 
     public static void main(String[] args){
         System.out.println("Args: "+Arrays.toString(args));
-        if (args.length < 2){
+        if (args.length < 1){
             printUsageAndExit();
         }
 
         // Load the .hic file into a dataset
-        Dataset ds = HiCFileTools.extractDatasetForCLT(args[1], false, false);
+        Dataset ds = HiCFileTools.extractDatasetForCLT(args[0], false, false);
 
         // We can take a look at the resolutions available
         // List<HiCZoom> zooms = ds.getAllPossibleResolutions();
